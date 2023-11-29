@@ -14,6 +14,7 @@
 
 ;;Illustrating GUI apps for Windows.
 (sb-alien:load-shared-object "user32")
+(sb-alien:load-shared-object "kernel32")
 
 (defvar c-null (sb-sys:int-sap 0))
 
@@ -24,3 +25,9 @@
   (uType   (sb-alien:unsigned 4)))
 
 (MessageBox c-null "Hello" "Test" 0)
+
+(define-alien-routine ("Beep" Beep) sb-alien:integer
+  (dwFreq    (sb-alien:integer))
+  (dwDuration    (sb-alien:integer)))
+
+(Beep 750 300)
